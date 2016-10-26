@@ -1,9 +1,9 @@
-// Netable differences vs. the default firmware for the ErgoDox EZ:
-// 1. The Cmd key is now on the right side, making Cmd+Space easier.
-// 2. The media keys work on OSX (But not on Windows).
 #include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "sendchar.h"
+#include "virtser.h"
+
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
