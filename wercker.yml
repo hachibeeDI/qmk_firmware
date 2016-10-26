@@ -9,20 +9,20 @@ build:
           cat /etc/lsb-release && uname -a
     - script:
         name: build default keymap.
-        cwd: $WERCKER_SOURCE_DIR/keyboards/ergodox_ez
+        cwd: $WERCKER_SOURCE_DIR/
         code: |
-          make clean && make KEYMAP=$TARGET_KEYMAP
+          make SLEEP_LED_ENABLE=no ergodox-ez-hachibee_osx
     - script:
         name: move built firmware to output dir.
-        cwd: $WERCKER_SOURCE_DIR/keyboards/ergodox_ez
+        cwd: $WERCKER_SOURCE_DIR/
         code: |
-          mv ergodox_ez.hex $WERCKER_OUTPUT_DIR
+          mv ergodox_ez_hachibee_osx.hex $WERCKER_OUTPUT_DIR
 deploy:
   steps:
     - script:
         name: put built hex file to bintray.
         code: |
-          curl -T $WERCKER_SOURCE_DIR/keyboards/ergodox_ez/.build/ergodox_ez_hachibee_osx.hex -u$BINTRAY_USERNAME:$BINTRAY_APIKEY https://api.bintray.com/content/$BINTRAY_USERNAME/generic/ergodox.hex/$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT/ergodox.hex
+          curl -T $WERCKER_OUTPUT_DIR/ergodox_ez_hachibee_osx.hex -u$BINTRAY_USERNAME:$BINTRAY_APIKEY https://api.bintray.com/content/$BINTRAY_USERNAME/generic/ergodox.hex/$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT/ergodox.hex
     - script:
         name: publish uploaded hex file.
         code: |
